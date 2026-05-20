@@ -101,7 +101,7 @@ graph TD
     ```
 
 4.  **Open URL**:
-    Navigate to `http://localhost:5173` in Chrome or Edge, click **ACTIVATE TRANSDUCER**, grant mic permissions, and enter the battle.
+    Navigate to `https://vi-battle.vercel.app/` in Chrome or Edge, click **ACTIVATE TRANSDUCER**, grant mic permissions, and enter the battle.
 
 ---
 
