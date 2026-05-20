@@ -1,0 +1,486 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg-dark: #070a12;
+  --bg-panel: rgba(13, 20, 35, 0.7);
+  --border-color: rgba(43, 58, 86, 0.45);
+  
+  --neon-cyan: #00f0ff;
+  --neon-purple: #bd00ff;
+  --neon-green: #00ff66;
+  --neon-red: #ff3b30;
+  --neon-amber: #ffb700;
+  
+  --font-hud: 'Share Tech Mono', monospace;
+  --font-body: 'Space Grotesk', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: #f1f5f9;
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-image: 
+    radial-gradient(circle at 15% 15%, rgba(189, 0, 255, 0.08) 0%, transparent 45%),
+    radial-gradient(circle at 85% 85%, rgba(0, 240, 255, 0.08) 0%, transparent 45%),
+    linear-gradient(rgba(18, 24, 38, 0.3) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(18, 24, 38, 0.3) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 25px 25px, 25px 25px;
+}
+
+#app {
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 15px 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Dashboard Wrapper */
+.vib-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  height: 100%;
+  flex-grow: 1;
+}
+
+/* Top Cockpit Header */
+.vib-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--neon-purple);
+  padding-bottom: 8px;
+  margin-bottom: 5px;
+}
+
+.header-glitch {
+  font-family: var(--font-hud);
+  font-size: 1.7rem;
+  letter-spacing: 2px;
+  color: #fff;
+  text-shadow: 
+    0 0 10px rgba(189, 0, 255, 0.4),
+    0 0 2px var(--neon-cyan);
+}
+
+.system-status {
+  font-family: var(--font-hud);
+  font-size: 0.9rem;
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid;
+  letter-spacing: 1.5px;
+  transition: all 0.3s ease;
+}
+
+.status-success {
+  background: rgba(0, 255, 102, 0.08);
+  border-color: var(--neon-green);
+  color: var(--neon-green);
+  box-shadow: 0 0 10px rgba(0, 255, 102, 0.25);
+}
+
+.status-warning {
+  background: rgba(255, 183, 0, 0.08);
+  border-color: var(--neon-amber);
+  color: var(--neon-amber);
+  box-shadow: 0 0 10px rgba(255, 183, 0, 0.25);
+}
+
+.status-danger {
+  background: rgba(255, 59, 48, 0.08);
+  border-color: var(--neon-red);
+  color: var(--neon-red);
+  box-shadow: 0 0 10px rgba(255, 59, 48, 0.25);
+}
+
+/* Three Column Cockpit Layout Grid */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 310px 1fr 310px;
+  gap: 15px;
+  align-items: stretch;
+}
+
+@media (max-width: 1250px) {
+  .dashboard-grid {
+    grid-template-columns: 310px 1fr;
+  }
+  .mappings-panel {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 900px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+  .control-panel, .game-panel, .mappings-panel {
+    grid-column: span 1;
+  }
+}
+
+/* HUD Panels */
+.panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 12px 15px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 6px;
+  margin-bottom: 12px;
+}
+
+.panel-title {
+  font-family: var(--font-hud);
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  color: var(--neon-cyan);
+  text-transform: uppercase;
+}
+
+.panel-decor {
+  font-family: var(--font-hud);
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.25);
+}
+
+/* Panel 1: Acoustic (Left) */
+.visualizer-container {
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(0, 240, 255, 0.15);
+  border-radius: 4px;
+  height: 110px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.visualizer-container canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.controls-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.vib-btn {
+  flex: 1;
+  font-family: var(--font-hud);
+  font-size: 0.85rem;
+  padding: 8px;
+  border: 1px solid;
+  border-radius: 4px;
+  cursor: pointer;
+  letter-spacing: 0.8px;
+  transition: all 0.25s ease;
+}
+
+.vib-btn.primary {
+  background: rgba(0, 240, 255, 0.08);
+  border-color: var(--neon-cyan);
+  color: var(--neon-cyan);
+}
+
+.vib-btn.primary:hover:not(:disabled) {
+  background: var(--neon-cyan);
+  color: #000;
+  box-shadow: 0 0 12px var(--neon-cyan);
+}
+
+.vib-btn.secondary {
+  background: rgba(189, 0, 255, 0.08);
+  border-color: var(--neon-purple);
+  color: var(--neon-purple);
+}
+
+.vib-btn.secondary:hover:not(:disabled) {
+  background: var(--neon-purple);
+  color: #fff;
+  box-shadow: 0 0 12px var(--neon-purple);
+}
+
+.vib-btn:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+.transcript-monitor {
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 4px;
+  padding: 8px 10px;
+  font-family: var(--font-hud);
+  border-left: 2px solid var(--neon-cyan);
+  margin-bottom: 12px;
+}
+
+.monitor-label {
+  font-family: var(--font-hud);
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 4px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.transcript-box {
+  font-size: 1rem;
+  color: #fff;
+  min-height: 22px;
+  transition: all 0.25s ease;
+  word-wrap: break-word;
+}
+
+.transcript-box.listening {
+  color: var(--neon-cyan);
+}
+
+.transcript-box.interim {
+  color: rgba(0, 240, 255, 0.65);
+  font-style: italic;
+}
+
+.transcript-box.flash-warning {
+  color: var(--neon-red);
+  text-shadow: 0 0 8px var(--neon-red);
+}
+
+/* Sidebar logs */
+.log-panel-inline {
+  display: flex;
+  flex-direction: column;
+}
+
+.log-container-inline {
+  overflow-y: auto;
+  height: 180px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+}
+
+.transaction-list {
+  list-style: none;
+  font-family: var(--font-hud);
+  font-size: 0.8rem;
+}
+
+.log-placeholder {
+  color: rgba(255, 255, 255, 0.2);
+  padding: 10px;
+  text-align: center;
+  font-style: italic;
+}
+
+.log-entry {
+  padding: 6px 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  animation: log-fade 0.3s ease-out;
+}
+
+.log-time {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.7rem;
+}
+
+.log-msg {
+  color: #e2e8f0;
+}
+
+.log-cmd {
+  font-size: 0.75rem;
+}
+
+/* Panel 2: Game (Center) */
+.game-panel {
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.game-canvas-container {
+  background: #020408;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+.game-canvas-container canvas {
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+  aspect-ratio: 2/1;
+  display: block;
+}
+
+.game-controls-help {
+  margin-top: 10px;
+  font-family: var(--font-hud);
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.35);
+  text-align: center;
+  border-top: 1px dashed rgba(255, 255, 255, 0.05);
+  padding-top: 8px;
+}
+
+.game-controls-help strong {
+  color: var(--neon-cyan);
+}
+
+/* Panel 3: Invocations & Glossary (Right) */
+.command-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.command-cell {
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 4px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  transition: all 0.25s ease;
+  overflow: hidden;
+}
+
+.command-cell::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: var(--neon-purple);
+  opacity: 0.4;
+}
+
+.command-cell .cmd-name {
+  font-family: var(--font-hud);
+  font-size: 0.85rem;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+.command-cell .cmd-keywords {
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.3);
+  margin-top: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.command-cell.pulse-success {
+  animation: pulse-success-anim 0.8s ease-out;
+}
+
+/* Glossary Section */
+.glossary-section {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  border-radius: 4px;
+  padding: 8px 10px;
+}
+
+.glossary-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 170px;
+  overflow-y: auto;
+}
+
+.glossary-item {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.3;
+}
+
+.glossary-item strong {
+  font-family: var(--font-hud);
+  color: var(--neon-cyan);
+}
+
+/* Animations and Custom Scrollbar */
+@keyframes log-fade {
+  from { opacity: 0; transform: translateY(-3px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-success-anim {
+  0% {
+    background: rgba(0, 255, 102, 0.08);
+    border-color: var(--neon-green);
+    box-shadow: 0 0 0px rgba(0, 255, 102, 0);
+  }
+  30% {
+    background: rgba(0, 255, 102, 0.3);
+    border-color: var(--neon-green);
+    box-shadow: 0 0 12px rgba(0, 255, 102, 0.45);
+  }
+  100% {
+    background: rgba(255, 255, 255, 0.015);
+    border-color: rgba(255, 255, 255, 0.04);
+    box-shadow: 0 0 0px rgba(0, 255, 102, 0);
+  }
+}
+
+.log-container-inline::-webkit-scrollbar,
+.glossary-list::-webkit-scrollbar {
+  width: 4px;
+}
+.log-container-inline::-webkit-scrollbar-track,
+.glossary-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+.log-container-inline::-webkit-scrollbar-thumb,
+.glossary-list::-webkit-scrollbar-thumb {
+  background: rgba(189, 0, 255, 0.2);
+  border-radius: 2px;
+}
+.log-container-inline::-webkit-scrollbar-thumb:hover,
+.glossary-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(189, 0, 255, 0.4);
+}
